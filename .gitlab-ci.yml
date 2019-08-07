@@ -1,7 +1,8 @@
 image: registry.gitlab.com/zurnaz/serverless-gitlab-ci-example
 
 stages:
-  - build
+  - build-python
+  - build-js
   - test
   - deploy
   - e2e tests
@@ -16,21 +17,20 @@ cache:
   paths:
     - node_modules/
     - venv/
-
-install js:
-  stage: build
-  image: node:slim # Needs python for a sepecific package TODO update docker image
-  script:
-    - yarn install --frozen-lockfile
-
 install python:
-  stage: build
+  stage: build-python
   image: python:3.7-stretch
   script:
     - python3 -m venv  venv
     - source venv/bin/activate
     - pip3 install -r dev-requirements.txt
     - pip3 install -r requirements.txt
+
+install js:
+  stage: build-js
+  # image: node:slim # Needs python for a sepecific package TODO update docker image
+  script:
+    - yarn install --frozen-lockfile
 
 lint javascript:
   stage: test
