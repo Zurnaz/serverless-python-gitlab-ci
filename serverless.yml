@@ -1,0 +1,79 @@
+service: python-gitlab-ci
+
+frameworkVersion: '>=1.43 <2.0.0'
+
+plugins:
+  - '@anttiviljami/serverless-stack-output'
+  - serverless-puresec-cli
+  - serverless-python-requirements
+
+package:
+   exclude:
+    - ./node_modules/**
+    - node_modules/**
+    - ./venv/**
+    - venv/**
+    - e2e/**
+    - ./e2e/**
+    - scripts/**
+    - ./scripts/**
+    - tests/**
+    - ./tests/**
+
+custom:
+  output:
+    handler: scripts/output.process
+    file: stack.json
+  pythonRequirements:
+    dockerizePip: true
+    layer: false  #Put dependencies into a Lambda Layer.
+
+provider:
+  name: aws
+  region: eu-west-2
+  timeout: 20
+  memorySize: 128
+  runtime: python3.7
+
+functions:
+
+  post_request:
+    handler: src/handler.post_request
+    events:
+      - http:
+          path: post_request
+          method: post
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
+  get_request:
+    handler: src/handler.get_request
+    events:
+      - http:
+          path: get_request
+          method: get
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
+
+resources:
+  Outputs:
+    Region:
+      Value: ${self:provider.region}
+    Stage:
+      Value: ${self:provider.stage}
