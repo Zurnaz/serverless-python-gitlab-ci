@@ -19,6 +19,7 @@ cache:
 
 install js:
   stage: build
+  image: node:slim # Needs python for a sepecific package TODO update docker image
   script:
     - yarn install --frozen-lockfile
 
