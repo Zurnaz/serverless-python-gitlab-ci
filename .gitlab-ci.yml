@@ -1,8 +1,7 @@
 image: registry.gitlab.com/zurnaz/serverless-gitlab-ci-example
 
 stages:
-  - build-python
-  - build-js
+  - build
   - test
   - deploy
   - e2e tests
@@ -27,8 +26,8 @@ install python:
     - pip3 install -r requirements.txt
 
 install js:
-  stage: build-js
-  # image: node:slim # Needs python for a sepecific package TODO update docker image
+  stage: build
+  image: python3.7-nodejs10
   script:
     - yarn install --frozen-lockfile
 
