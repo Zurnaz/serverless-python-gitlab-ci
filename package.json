@@ -13,9 +13,7 @@
     "lint:all:eslint": "yarn lint:eslint --ext .js .",
     "lint:all:markdownlint": "yarn lint:markdownlint \"docs/*.md\" \"*.md\"",
     "lint:all:prettier": "yarn lint:prettier \"**/*.{js,json,md}\"",
-    "lint": "run-s lint:all:*",
-    "e2e": "cypress run",
-    "verify": "cypress verify"
+    "lint": "run-s lint:all:*"
   },
   "dependencies": {
     "@anttiviljami/serverless-stack-output": "0.3.1",
@@ -27,7 +25,6 @@
     "eslint-config-prettier": "3.5.0",
     "eslint-config-standard": "12.0.0",
     "eslint-plugin-ava": "6.0.0",
-    "eslint-plugin-cypress": "2.2.1",
     "eslint-plugin-import": "2.14.0",
     "eslint-plugin-node": "8.0.1",
     "eslint-plugin-promise": "4.0.1",

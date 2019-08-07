@@ -6,24 +6,21 @@ stages:
   - deploy
   - e2e tests
   - release
+  # - release tests
 
 variables:
   dev: 'dev-$CI_COMMIT_REF_SLUG'
-  CYPRESS_CACHE_FOLDER: ${CI_PROJECT_DIR}/cache/Cypress
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - node_modules/
-    - cache/Cypress
     - venv/
 
 install js:
   stage: build
-  image: cypress/base:10.15.3
   script:
     - yarn install --frozen-lockfile
-    - yarn verify
 
 install python:
   stage: build
@@ -36,7 +33,6 @@ install python:
 
 lint javascript:
   stage: test
-  image: cypress/base:10.15.3
   script:
     - yarn install --frozen-lockfile
     - yarn lint
