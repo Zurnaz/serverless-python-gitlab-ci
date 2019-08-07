@@ -28,7 +28,7 @@ install python:
 
 install js:
   stage: build
-  image: python3.7-nodejs10
+  image: nikolaik/python-nodejs:python3.7-nodejs10
   script:
     - yarn install --frozen-lockfile
 
