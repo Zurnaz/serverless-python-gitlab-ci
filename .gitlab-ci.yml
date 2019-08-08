@@ -1,4 +1,4 @@
-image: registry.gitlab.com/zurnaz/serverless-gitlab-ci-example
+image: registry.gitlab.com/zurnaz/serverless-python-gitlab-ci
 
 stages:
   - build
@@ -19,7 +19,6 @@ cache:
 
 install python:
   stage: build
-  image: python:3.7-stretch
   script:
     - python3 -m venv  venv
     - source venv/bin/activate
@@ -28,7 +27,6 @@ install python:
 
 install js:
   stage: build
-  image: nikolaik/python-nodejs:python3.7-nodejs10
   script:
     - yarn install --frozen-lockfile
 
@@ -40,14 +38,12 @@ lint javascript:
 
 lint python:
   stage: test
-  image: python:3.7-stretch
   script:
     - source venv/bin/activate
     - pylint src
 
 unit tests python:
   stage: test
-  image: python:3.7-stretch
   script:
     - source venv/bin/activate
     - pytest tests
@@ -71,7 +67,6 @@ dev:
 
 e2e tests dev:
   stage: e2e tests
-  image: python:3.7-stretch
   script:
     - pytest e2e
   except:
@@ -95,7 +90,6 @@ staging:
 
 e2e tests staging:
   stage: e2e tests
-  image: python:3.7-stretch
   script:
     - pytest e2e
   only:
