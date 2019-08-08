@@ -42,7 +42,7 @@ pip3 install -r requirements.txt
 pip3 install -r dev-requirements.txt
 ```
 
-Lint
+Lint (Tests currently not included in ci build)
 
 ```bash
 pylint src
