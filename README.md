@@ -61,3 +61,7 @@ Run End to End tests
 ```bash
 pytest e2e
 ```
+
+## Docker image
+
+Docker image with python, nodesjs and serverless is required.
