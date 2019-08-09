@@ -10,6 +10,7 @@ for REQ in ${REQS[@]}
 do
   echo "loop"
   echo $REQ
+  echo which ${REQ}
   which ${REQ} >/dev/null
   if [ ! $? -eq 0 ]; then
     echo "requirement ${REQ} is missing"
