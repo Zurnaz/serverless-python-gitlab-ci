@@ -5,8 +5,11 @@ set -e
 # check requirements
 REQS=( curl jq )
 echo "1"
+echo $REQS
 for REQ in ${REQS[@]}
 do
+  echo "loop"
+  echo $REQ
   which ${REQ} >/dev/null
   if [ ! $? -eq 0 ]; then
     echo "requirement ${REQ} is missing"
