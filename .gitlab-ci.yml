@@ -10,6 +10,12 @@ stages:
 
 variables:
   dev: 'dev-$CI_COMMIT_REF_SLUG'
+  # Artifact from other repo settings
+  OUT_FILE: input-stack.json
+  REF: master
+  BASE_URL: https://gitlab.com
+  PROJECT: 13697110 # project id of serverless stateful gitlab ci
+  PER_PAGE: 50
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -50,7 +56,10 @@ unit tests python:
 
 dev:
   stage: deploy
+  variables:
+    STAGE: dev
   script:
+    - curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh
     - sls deploy -s dev-${CI_COMMIT_REF_SLUG} -v
   only:
     - branches
@@ -77,7 +86,10 @@ e2e tests dev:
 
 staging:
   stage: deploy
+  variables:
+    STAGE: staging # target stage of artifact from other repo
   script:
+    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
     - sls deploy -s staging -v
   environment:
     name: staging
@@ -102,7 +114,10 @@ e2e tests staging:
 
 deploy live:
   stage: release
+  variables:
+    STAGE: live
   script:
+    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
     - sls deploy -s live -v
   environment:
     name: live
