@@ -25,7 +25,14 @@ cache:
 
 install python:
   stage: build
+  variables:
+    STAGE: staging
   script:
+    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/check-vars.sh)
+    - check_vars | echo
+    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh) | echo
+    - ls
+    - download_latest
     - python3 -m venv  venv
     - source venv/bin/activate
     - pip3 install -r dev-requirements.txt
@@ -89,11 +96,7 @@ staging:
   variables:
     STAGE: staging # target stage of artifact from other repo
   script:
-    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/check-vars.sh)
-    - check_vars
     - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
-    - download_latest
-    - ls
     - sls deploy -s staging -v
   environment:
     name: staging
