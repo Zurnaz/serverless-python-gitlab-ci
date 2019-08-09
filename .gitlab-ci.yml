@@ -15,7 +15,7 @@ variables:
   REF: master
   BASE_URL: https://gitlab.com
   PROJECT: 13697110 # project id of serverless stateful gitlab ci
-  PER_PAGE: 50
+  # PER_PAGE: 50
 
 cache:
   key: ${CI_COMMIT_REF_SLUG}
@@ -28,6 +28,7 @@ install python:
   variables:
     STAGE: staging
   script:
+    - printenv
     - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/check-vars.sh)
     - check_vars | echo
     - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh) | echo
