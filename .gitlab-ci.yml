@@ -28,7 +28,6 @@ install python:
   variables:
     STAGE: staging
   script:
-    - apt-get install jq
     - ./get-last-successful-build-artifact.sh
     - download_latest
     - ls
