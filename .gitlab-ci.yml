@@ -59,7 +59,7 @@ dev:
   variables:
     STAGE: dev
   script:
-    - curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh
+    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
     - sls deploy -s dev-${CI_COMMIT_REF_SLUG} -v
   only:
     - branches
@@ -89,7 +89,7 @@ staging:
   variables:
     STAGE: staging # target stage of artifact from other repo
   script:
-    - bash <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
+    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
     - ls
     - sls deploy -s staging -v
   environment:
