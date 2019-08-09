@@ -90,6 +90,7 @@ staging:
     STAGE: staging # target stage of artifact from other repo
   script:
     - curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh
+    - ls
     - sls deploy -s staging -v
   environment:
     name: staging
