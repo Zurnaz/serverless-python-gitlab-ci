@@ -11,7 +11,7 @@ stages:
 variables:
   dev: 'dev-$CI_COMMIT_REF_SLUG'
   # Artifact from other repo settings
-  # OUT_FILE: input-stack.zip
+  OUT_FILE: artifacts.zip
   REF: master
   BASE_URL: https://gitlab.com
   PROJECT: 13697110 # project id of serverless stateful gitlab ci
@@ -28,9 +28,10 @@ install python:
   variables:
     STAGE: staging
   script:
-    - ./get-last-successful-build-artifact.sh
+    - . <(curl -sL https://gitla.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
     - download_latest
     - ls
+    - unzip $OUT_FILE  -d dep-stack
     - python3 -m venv  venv
     - source venv/bin/activate
     - pip3 install -r dev-requirements.txt
