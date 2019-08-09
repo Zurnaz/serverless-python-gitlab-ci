@@ -29,7 +29,6 @@ install python:
     STAGE: staging
   script:
     - ./get-last-successful-build-artifact.sh
-    - download_latest
     - ls
     - unzip $OUT_FILE  -d dep-stack
     - python3 -m venv  venv
