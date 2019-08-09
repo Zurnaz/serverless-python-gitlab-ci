@@ -25,8 +25,6 @@ cache:
 
 install python:
   stage: build
-  variables:
-    STAGE: staging
   script:
     - python3 -m venv  venv
     - source venv/bin/activate
@@ -61,7 +59,8 @@ dev:
   variables:
     STAGE: dev
   script:
-    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
+    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh); download_latest
+    - unzip $OUT_FILE  -d dep-stack
     - sls deploy -s dev-${CI_COMMIT_REF_SLUG} -v
   only:
     - branches
@@ -120,7 +119,8 @@ deploy live:
   variables:
     STAGE: live
   script:
-    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
+    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh); download_latest
+    - unzip $OUT_FILE  -d dep-stack
     - sls deploy -s live -v
   environment:
     name: live
