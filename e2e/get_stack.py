@@ -2,10 +2,13 @@ from os.path import abspath
 import json
 
 PATH = abspath('stack.json')
+
 try:
-    PARAMETERS = json.loads(PATH)
+    with open(PATH) as file:
+        PARAMETERS = json.load(file)
 except Exception:
-    print('ERROR:::No stack.json file available')
+    print('ERROR::No stack.json file available')
+    print('PATH::', PATH)
     raise
 
 

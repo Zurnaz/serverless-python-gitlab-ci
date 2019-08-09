@@ -13,6 +13,6 @@ def setup():
 
 
 def test_get_request():
-    path = ENDPOINT + '/get'
+    path = ENDPOINT + '/get_request'
     res = get(path)
     assert res.status_code == 200
