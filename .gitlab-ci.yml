@@ -28,9 +28,6 @@ install python:
   variables:
     STAGE: staging
   script:
-    - ./get-last-successful-build-artifact.sh
-    - ls
-    - unzip $OUT_FILE  -d dep-stack
     - python3 -m venv  venv
     - source venv/bin/activate
     - pip3 install -r dev-requirements.txt
@@ -94,7 +91,8 @@ staging:
   variables:
     STAGE: staging # target stage of artifact from other repo
   script:
-    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
+    - . <(curl -sL https://gitlab.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh); download_latest
+    - unzip $OUT_FILE  -d dep-stack
     - sls deploy -s staging -v
   environment:
     name: staging
