@@ -68,6 +68,7 @@ dev:
 e2e tests dev:
   stage: e2e tests
   script:
+    - source venv/bin/activate
     - pytest e2e
   except:
     - master
@@ -91,6 +92,7 @@ staging:
 e2e tests staging:
   stage: e2e tests
   script:
+    - source venv/bin/activate
     - pytest e2e
   only:
     - master
