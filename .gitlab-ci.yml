@@ -28,7 +28,7 @@ install python:
   variables:
     STAGE: staging
   script:
-    - . <(curl -sL https://gitla.com/morph027/gitlab-ci-helpers/raw/master/get-last-successful-build-artifact.sh)
+    - ./get-last-successful-build-artifact.sh
     - download_latest
     - ls
     - unzip $OUT_FILE  -d dep-stack
