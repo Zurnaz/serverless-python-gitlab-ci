@@ -130,6 +130,8 @@ deploy live:
 
 stop_dev:
   stage: deploy
+  variables:
+    STAGE: dev
   script:
     - sls remove -s dev-${CI_COMMIT_REF_SLUG} -v
   only:
@@ -144,6 +146,8 @@ stop_dev:
 
 stop_staging:
   stage: deploy
+  variables:
+    STAGE: staging
   script:
     - sls remove -s staging -v
   environment:
