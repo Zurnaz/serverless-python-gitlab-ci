@@ -12,6 +12,7 @@ Requires environmental variables from IAM user created for deployments:
 
 - AWS_ACCESS_KEY_ID with the new user’s access key
 - AWS_SECRET_ACCESS_KEY with the new user’s access secret key
+- BASE_DOMAIN with the domain registered in AWS hosted zones
 
 ## Recommendations
 

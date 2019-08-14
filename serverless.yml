@@ -6,6 +6,7 @@ plugins:
   - '@anttiviljami/serverless-stack-output'
   - serverless-puresec-cli
   - serverless-python-requirements
+  - serverless-domain-manager
 
 package:
    exclude:
@@ -27,6 +28,12 @@ custom:
   pythonRequirements:
     dockerizePip: false
     layer: false  #Put dependencies into a Lambda Layer.
+  # https://serverless.com/blog/api-gateway-multiple-services/
+  customDomain:
+    basePath: ""
+    domainName: ${opt:stage}.${env:BASE_DOMAIN}
+    stage: "${self:custom.stage}"
+    createRoute53Record: true
 
 provider:
   name: aws
